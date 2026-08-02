@@ -46,6 +46,10 @@ the catalog, never stored.
 
 cart.html and contact.html emit **pageLoad only** (no cart/step/form events, by contract).
 
+There is deliberately **NO separate order-confirmation page** — these 7 pages are the whole
+site. The order confirmation is an inline state of checkout.html (see §6), so no extra
+pageLoad fires when it appears.
+
 ### 2. `productView` — detail.html render (valid `?sku=` only)
 
 ```json
@@ -53,7 +57,7 @@ cart.html and contact.html emit **pageLoad only** (no cart/step/form events, by 
   "event": "productView",
   "product": {
     "sku": "XS-JACK-002",
-    "name": "Quilted Winter Jacket",
+    "name": "Leather Winter Jacket",
     "price": 149.99,
     "category": "Jackets",
     "widthCm": 38,
@@ -100,7 +104,7 @@ the full catalog and emits NO search event. Fired after `pageLoad`.
 | eventName | `Summer Sale 2026` | `Winter Clearance 2026` |
 | eventCategory | `promotion` | `merchandising` |
 | eventAction | `click` | `click` |
-| eventLabel | `Shop the Sale` | `Save 20% on Quilted Jackets` |
+| eventLabel | `Shop the Sale` | `Save 20% on Winter Jackets` |
 | component | `hero-banner` | `sidebar-offer-tile` |
 | placement | `Home Hero` | `Shop Sidebar` |
 | regionPath | `home > hero-carousel > slide-1` | `shop > sidebar > offer-tile` |
@@ -136,18 +140,24 @@ happens synchronously on click before navigation.
 Fires once, then the page swaps to an inline confirmation state and the cart is cleared.
 Emitted only when email is valid AND the cart is non-empty.
 
+**Inline confirmation, by design:** the confirmation is NOT a separate page/URL — checkout.html
+hides the form and reveals the `#orderConfirmation` block in place. The URL stays
+`checkout.html`, the title stays `Checkout — XeraShop`, siteSection stays `checkout`, and no
+second pageLoad fires. Consequently the `orderComplete` event (and any event translated after
+it) carries **checkout page context** — that is intentional, not a bug.
+
 ## Product catalog (8 skus — identity PRODUCT_SKU lookups)
 
 | sku | name | price | category | W×H×D cm | internal_score |
 |---|---|---|---|---|---|
 | XS-SHIRT-001 | Oxford Slim Shirt | 49.99 | Shirts | 28×38×4 | 87.5 |
-| XS-SHIRT-002 | Linen Weekend Shirt | 44.5 | Shirts | 28×38×4 | 81.2 |
-| XS-DRESS-001 | Floral Midi Dress | 79.99 | Dresses | 30×42×5 | 92.1 |
+| XS-SHIRT-002 | Off-Shoulder Weekend Top | 44.5 | Shirts | 28×38×4 | 81.2 |
+| XS-DRESS-001 | Crochet Summer Dress | 79.99 | Dresses | 30×42×5 | 92.1 |
 | XS-DRESS-002 | Satin Evening Dress | 129 | Dresses | 30×42×5 | 88.7 |
-| XS-JEAN-001 | Slim Fit Indigo Jeans | 64.99 | Jeans | 30×40×6 | 84.3 |
-| XS-JEAN-002 | Relaxed Straight Jeans | 59.99 | Jeans | 30×40×6 | 78.9 |
-| XS-JACK-001 | Urban Bomber Jacket | 119.99 | Jackets | 35×45×8 | 90.4 |
-| XS-JACK-002 | Quilted Winter Jacket | 149.99 | Jackets | 38×48×10 | 95 |
+| XS-JEAN-001 | Kids Light-Wash Jeans | 64.99 | Jeans | 30×40×6 | 84.3 |
+| XS-JEAN-002 | Boys Denim Jacket & Jeans Set | 59.99 | Jeans | 30×40×6 | 78.9 |
+| XS-JACK-001 | Velvet Dinner Jacket | 119.99 | Jackets | 35×45×8 | 90.4 |
+| XS-JACK-002 | Leather Winter Jacket | 149.99 | Jackets | 38×48×10 | 95 |
 
 ## Suggested walkerOS mapping (from the retail.web crosswalk)
 

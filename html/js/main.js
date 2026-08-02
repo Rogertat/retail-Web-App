@@ -165,7 +165,7 @@
             eventName: 'Winter Clearance 2026',
             eventCategory: 'merchandising',
             eventAction: 'click',
-            eventLabel: 'Save 20% on Quilted Jackets',
+            eventLabel: 'Save 20% on Winter Jackets',
             component: 'sidebar-offer-tile',
             placement: 'Shop Sidebar',
             regionPath: 'shop > sidebar > offer-tile'
