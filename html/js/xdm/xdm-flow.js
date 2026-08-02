@@ -1,5 +1,5 @@
 window.__XDM_ACCEL_FLOW__ = {
-  "contentHash": "9d5183d75869f36d32cb936710beb5cea558d38596e0257ff00abe9d6bc654d3",
+  "contentHash": "0437a3afe1f2a362aed52529604eac23455863797a5ed6cecf5eae8b399cfd76",
   "edgeDomain": "aeppsemea.data.adobedc.net",
   "flow": {
     "config": {
@@ -266,7 +266,10 @@ window.__XDM_ACCEL_FLOW__ = {
                     "map": {
                       "customerEmail": {
                         "key": "data.email",
-                        "fn": "hash.sha256"
+                        "fn": [
+                          "normalize.lowercase",
+                          "hash.sha256"
+                        ]
                       },
                       "productSku": {
                         "key": "data.product_sku"
@@ -300,7 +303,10 @@ window.__XDM_ACCEL_FLOW__ = {
               {
                 "id": {
                   "key": "data.email",
-                  "fn": "hash.sha256"
+                  "fn": [
+                    "normalize.lowercase",
+                    "hash.sha256"
+                  ]
                 },
                 "authenticatedState": "ambiguous"
               }
